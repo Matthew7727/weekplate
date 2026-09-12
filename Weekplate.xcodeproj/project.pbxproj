@@ -1,0 +1,421 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0EFEF8083039384EA7E1E80C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA73768F48E6015BD1F9F156 /* SettingsView.swift */; };
+		18CA9B234467FBEBD0F9D14A /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA4DB71A17A84769A6DA50 /* Brand.swift */; };
+		1BDC58338FEAFB457B7C1DF1 /* NutritionOCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53175806267DC5A872CECE05 /* NutritionOCR.swift */; };
+		45E9471729A4001874052523 /* OpenFoodFactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D811EECCCC36ED5116DF3D /* OpenFoodFactsService.swift */; };
+		6800406D9C7276BB63F4EC2D /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534CC4D9A98750E048F09029 /* TrendsView.swift */; };
+		80A6A54BD74077335D5E48FE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43298BA8152FB39640FD96 /* ContentView.swift */; };
+		8D7575F36E6717BF54763A44 /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B1A7AB6959BD18F0A9A4C8 /* Motion.swift */; };
+		932E10EC9DC71E297505BCC0 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455517E8B236CF9F75807DE9 /* Models.swift */; };
+		C99F311B69E955A71BD384E2 /* CameraViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E481A0DBCDF0E49C134FBD /* CameraViews.swift */; };
+		CD08D0392CAA3A362B67C078 /* WeekplateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5339910BEF0C26A730660F1D /* WeekplateApp.swift */; };
+		D0A087C6E1BDF3F383B3330E /* FindFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B35191A341E31A2C2BC2FF /* FindFoodView.swift */; };
+		D306FE5FB11548E99F43D0C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F55CA7623275C06EE0A7FA71 /* Assets.xcassets */; };
+		D9EA9442463CFC123547748D /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467A7554099593AAB9B861C4 /* WeekView.swift */; };
+		E53D9B5BA2218E9516648FB8 /* RecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5200332E69864F29F13B4ADC /* RecipesView.swift */; };
+		F51E18356DF88FF41C9B49A4 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F97324879CB032FFD316D7 /* AppStore.swift */; };
+		F6F967D2F176C1DBFA9BE1F6 /* MacroViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2503761AF7B05AC345809B0 /* MacroViews.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		455517E8B236CF9F75807DE9 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		467A7554099593AAB9B861C4 /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
+		5200332E69864F29F13B4ADC /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
+		53175806267DC5A872CECE05 /* NutritionOCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionOCR.swift; sourceTree = "<group>"; };
+		5339910BEF0C26A730660F1D /* WeekplateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekplateApp.swift; sourceTree = "<group>"; };
+		534CC4D9A98750E048F09029 /* TrendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsView.swift; sourceTree = "<group>"; };
+		75B35191A341E31A2C2BC2FF /* FindFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFoodView.swift; sourceTree = "<group>"; };
+		A6F97324879CB032FFD316D7 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		B3AA4DB71A17A84769A6DA50 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		B8D811EECCCC36ED5116DF3D /* OpenFoodFactsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsService.swift; sourceTree = "<group>"; };
+		C2503761AF7B05AC345809B0 /* MacroViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroViews.swift; sourceTree = "<group>"; };
+		C5B1A7AB6959BD18F0A9A4C8 /* Motion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Motion.swift; sourceTree = "<group>"; };
+		DA73768F48E6015BD1F9F156 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E6E481A0DBCDF0E49C134FBD /* CameraViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViews.swift; sourceTree = "<group>"; };
+		F0515A3761E58BFD0771E86C /* Weekplate.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Weekplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F55CA7623275C06EE0A7FA71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FB43298BA8152FB39640FD96 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		303B6C2F703EEE9A1CBE07DB /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A6F97324879CB032FFD316D7 /* AppStore.swift */,
+				FB43298BA8152FB39640FD96 /* ContentView.swift */,
+				5339910BEF0C26A730660F1D /* WeekplateApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		53B5C7F6FD4BF9C0D8DBB10B = {
+			isa = PBXGroup;
+			children = (
+				D4DFA2B034EE630BE81F4DF8 /* Weekplate */,
+				F0CB82BB3B3ECAFB1C64743E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		572CCB30BBCC048B4F6A24FA /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				75B35191A341E31A2C2BC2FF /* FindFoodView.swift */,
+				5200332E69864F29F13B4ADC /* RecipesView.swift */,
+				DA73768F48E6015BD1F9F156 /* SettingsView.swift */,
+				534CC4D9A98750E048F09029 /* TrendsView.swift */,
+				467A7554099593AAB9B861C4 /* WeekView.swift */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		6E75CABF7BCF787D57C30B56 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				455517E8B236CF9F75807DE9 /* Models.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		718DA73EA092E9175158CA3D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E6E481A0DBCDF0E49C134FBD /* CameraViews.swift */,
+				53175806267DC5A872CECE05 /* NutritionOCR.swift */,
+				B8D811EECCCC36ED5116DF3D /* OpenFoodFactsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D4DFA2B034EE630BE81F4DF8 /* Weekplate */ = {
+			isa = PBXGroup;
+			children = (
+				303B6C2F703EEE9A1CBE07DB /* App */,
+				FE7C0A9E4AAE8DD09A277DAE /* Components */,
+				6E75CABF7BCF787D57C30B56 /* Core */,
+				572CCB30BBCC048B4F6A24FA /* Features */,
+				EA3EBEA9CC54F34158B49184 /* Resources */,
+				718DA73EA092E9175158CA3D /* Services */,
+			);
+			path = Weekplate;
+			sourceTree = "<group>";
+		};
+		EA3EBEA9CC54F34158B49184 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F55CA7623275C06EE0A7FA71 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F0CB82BB3B3ECAFB1C64743E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F0515A3761E58BFD0771E86C /* Weekplate.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FE7C0A9E4AAE8DD09A277DAE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B3AA4DB71A17A84769A6DA50 /* Brand.swift */,
+				C2503761AF7B05AC345809B0 /* MacroViews.swift */,
+				C5B1A7AB6959BD18F0A9A4C8 /* Motion.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F7DAF8D9F0EC5B0DA3DB54E5 /* Weekplate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCF632549D2324BDA53176D5 /* Build configuration list for PBXNativeTarget "Weekplate" */;
+			buildPhases = (
+				0EFC0D6622959DD262A4AF81 /* Sources */,
+				4D9A504AD138902F9D1B5CF7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Weekplate;
+			packageProductDependencies = (
+			);
+			productName = Weekplate;
+			productReference = F0515A3761E58BFD0771E86C /* Weekplate.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1225498A67117B0F18E3CAE0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					F7DAF8D9F0EC5B0DA3DB54E5 = {
+						DevelopmentTeam = 434WNX65TH;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 44802B54E2D819BE73688C20 /* Build configuration list for PBXProject "Weekplate" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 53B5C7F6FD4BF9C0D8DBB10B;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = F0CB82BB3B3ECAFB1C64743E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F7DAF8D9F0EC5B0DA3DB54E5 /* Weekplate */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4D9A504AD138902F9D1B5CF7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D306FE5FB11548E99F43D0C7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0EFC0D6622959DD262A4AF81 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F51E18356DF88FF41C9B49A4 /* AppStore.swift in Sources */,
+				18CA9B234467FBEBD0F9D14A /* Brand.swift in Sources */,
+				C99F311B69E955A71BD384E2 /* CameraViews.swift in Sources */,
+				80A6A54BD74077335D5E48FE /* ContentView.swift in Sources */,
+				D0A087C6E1BDF3F383B3330E /* FindFoodView.swift in Sources */,
+				F6F967D2F176C1DBFA9BE1F6 /* MacroViews.swift in Sources */,
+				932E10EC9DC71E297505BCC0 /* Models.swift in Sources */,
+				8D7575F36E6717BF54763A44 /* Motion.swift in Sources */,
+				1BDC58338FEAFB457B7C1DF1 /* NutritionOCR.swift in Sources */,
+				45E9471729A4001874052523 /* OpenFoodFactsService.swift in Sources */,
+				E53D9B5BA2218E9516648FB8 /* RecipesView.swift in Sources */,
+				0EFEF8083039384EA7E1E80C /* SettingsView.swift in Sources */,
+				6800406D9C7276BB63F4EC2D /* TrendsView.swift in Sources */,
+				D9EA9442463CFC123547748D /* WeekView.swift in Sources */,
+				CD08D0392CAA3A362B67C078 /* WeekplateApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1AD9281AEFAB8B1F45A26063 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 434WNX65TH;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mattecc.weekplate;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7C81ECFDECD00D5DBB402335 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Weekplate;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scan food barcodes and nutrition labels to log meals.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Choose a nutrition-label photo to read its calories and macros.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		7D30EC0592FBD480562226DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 434WNX65TH;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mattecc.weekplate;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F0D3D06BF3DA0BB3A5F435B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Weekplate;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scan food barcodes and nutrition labels to log meals.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Choose a nutrition-label photo to read its calories and macros.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		44802B54E2D819BE73688C20 /* Build configuration list for PBXProject "Weekplate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0D3D06BF3DA0BB3A5F435B9 /* Debug */,
+				7C81ECFDECD00D5DBB402335 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CCF632549D2324BDA53176D5 /* Build configuration list for PBXNativeTarget "Weekplate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D30EC0592FBD480562226DC /* Debug */,
+				1AD9281AEFAB8B1F45A26063 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1225498A67117B0F18E3CAE0 /* Project object */;
+}

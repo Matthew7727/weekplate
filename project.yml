@@ -1,0 +1,35 @@
+name: Weekplate
+options:
+  bundleIdPrefix: com.mattecc
+  deploymentTarget:
+    iOS: "17.0"
+settings:
+  base:
+    SWIFT_VERSION: 5.0
+    TARGETED_DEVICE_FAMILY: "1"
+    GENERATE_INFOPLIST_FILE: YES
+    INFOPLIST_KEY_CFBundleDisplayName: Weekplate
+    INFOPLIST_KEY_NSCameraUsageDescription: Scan food barcodes and nutrition labels to log meals.
+    INFOPLIST_KEY_NSPhotoLibraryUsageDescription: Choose a nutrition-label photo to read its calories and macros.
+    INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+    INFOPLIST_KEY_UIRequiresFullScreen: YES
+targets:
+  Weekplate:
+    type: application
+    platform: iOS
+    sources:
+      - path: Weekplate
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mattecc.weekplate
+        DEVELOPMENT_TEAM: 434WNX65TH
+        CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+schemes:
+  Weekplate:
+    build:
+      targets:
+        Weekplate: all
+    run:
+      config: Debug
