@@ -1,13 +1,10 @@
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct RecipesView: View {
     @ObservedObject var store: AppStore
     @State private var showNew = false
-    @State private var showImporter = false
     @State private var showAIBuilder = false
     @State private var showPantry = false
-    @State private var importMessage: String?
     @State private var selectedRecipe: Recipe?
     @AppStorage("weekplate.aiEnabled") private var aiEnabled = false
 
@@ -18,31 +15,21 @@ struct RecipesView: View {
             VStack(alignment: .leading, spacing: 20) {
                 ScreenHeading(eyebrow: "Your kitchen, organised", title: "RECIPES.",
                               subtitle: "Build a batch. Flex the portions.", alignment: .center)
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack {
-                        PillButton(title: "New recipe", symbol: "plus") { showNew = true }
-                        if aiAvailable {
-                            PillButton(title: "Create with AI", symbol: "sparkles", color: Brand.blue) { showAIBuilder = true }
-                        }
+                HStack(spacing: 7) {
+                    RecipeActionButton(title: "New recipe", symbol: "plus", color: Brand.coral) { showNew = true }
+                    if aiAvailable {
+                        RecipeActionButton(title: "Create with AI", symbol: "sparkles", color: Brand.blue) { showAIBuilder = true }
                     }
-                    HStack(spacing: 18) {
-                        Button { showImporter = true } label: {
-                            Label("Import text", systemImage: "square.and.arrow.down")
-                                .font(.subheadline.bold()).foregroundStyle(Brand.blue)
-                        }
-                        Button { showPantry = true } label: {
-                            Label("Pantry", systemImage: "basket")
-                                .font(.subheadline.bold()).foregroundStyle(Brand.blue)
-                        }
-                    }
+                    RecipeActionButton(title: "Pantry", symbol: "basket", color: Brand.lilac) { showPantry = true }
                 }
+                .frame(maxWidth: .infinity)
                 if store.data.recipes.isEmpty {
                     WCard(color: Brand.lilac) {
                         VStack(alignment: .leading, spacing: 9) {
                             Image(systemName: "book.closed.fill").font(.largeTitle)
                             Text("Start with Sunday’s staples.")
                                 .font(.system(size: 23, weight: .black))
-                            Text("Add a recipe or import your existing text file. You can add calorie values as you go.")
+                            Text("Add a recipe to start building your weekly staples. You can add calorie values as you go.")
                                 .font(.subheadline)
                         }
                         .foregroundStyle(.black)
@@ -85,29 +72,34 @@ struct RecipesView: View {
         }
         .sheet(isPresented: $showNew) { RecipeEditorView(store: store) }
         .sheet(isPresented: $showAIBuilder) {
-            AIRecipeBuilderView(store: store) { _ in
+            AIRecipeBuilderFlowView(store: store) { _ in
                 showAIBuilder = false
             }
         }
         .sheet(isPresented: $showPantry) { PantryView(store: store) }
         .sheet(item: $selectedRecipe) { recipe in RecipeDetailView(store: store, recipeID: recipe.id) }
-        .fileImporter(isPresented: $showImporter, allowedContentTypes: [.plainText, .text]) { result in
-            do {
-                let url = try result.get()
-                let granted = url.startAccessingSecurityScopedResource()
-                defer { if granted { url.stopAccessingSecurityScopedResource() } }
-                let text = try String(contentsOf: url, encoding: .utf8)
-                let count = store.importText(text)
-                importMessage = count == 0 ? "No recipes found in that file." : "Imported \(count) recipe draft(s). Add nutrition before logging them."
-            } catch {
-                importMessage = "Import failed: \(error.localizedDescription)"
-            }
+    }
+}
+
+private struct RecipeActionButton: View {
+    let title: String
+    let symbol: String
+    let color: Color
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Label(title, systemImage: symbol)
+                .font(.system(size: 12, weight: .bold))
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+                .foregroundStyle(color == Brand.lilac ? .black : .white)
+                .padding(.horizontal, 9)
+                .padding(.vertical, 13)
+                .frame(maxWidth: .infinity)
+                .background(color, in: Rectangle())
         }
-        .alert("Recipe import", isPresented: Binding(get: { importMessage != nil }, set: { if !$0 { importMessage = nil } })) {
-            Button("OK") { importMessage = nil }
-        } message: {
-            Text(importMessage ?? "")
-        }
+        .buttonStyle(MotionButtonStyle())
     }
 }
 

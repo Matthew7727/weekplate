@@ -44,7 +44,9 @@ struct ContentView: View {
                     } label: {
                         VStack(spacing: 5) {
                             Image(systemName: item.symbol).font(.system(size: 19, weight: .bold))
-                            Text(item.rawValue).font(.system(size: 10, weight: .bold))
+                            Text(item.rawValue.uppercased())
+                                .font(.system(size: 10, weight: .black))
+                                .tracking(1.1)
                         }
                         .foregroundStyle(tab == item ? Brand.coral : Brand.muted(scheme))
                         .frame(maxWidth: .infinity)

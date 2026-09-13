@@ -13,6 +13,7 @@
 		18CA9B234467FBEBD0F9D14A /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA4DB71A17A84769A6DA50 /* Brand.swift */; };
 		1BDC58338FEAFB457B7C1DF1 /* NutritionOCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53175806267DC5A872CECE05 /* NutritionOCR.swift */; };
 		45E9471729A4001874052523 /* OpenFoodFactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D811EECCCC36ED5116DF3D /* OpenFoodFactsService.swift */; };
+		48178303AB3414051BCBC380 /* AIRecipeBuilderFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00029CB8F0CB63A3B280A606 /* AIRecipeBuilderFlowView.swift */; };
 		6800406D9C7276BB63F4EC2D /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534CC4D9A98750E048F09029 /* TrendsView.swift */; };
 		7B64E5307FF1395CFB471A4A /* WeekplateUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD74AE893F4C941DB4573B3D /* WeekplateUITests.swift */; };
 		80A6A54BD74077335D5E48FE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43298BA8152FB39640FD96 /* ContentView.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00029CB8F0CB63A3B280A606 /* AIRecipeBuilderFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIRecipeBuilderFlowView.swift; sourceTree = "<group>"; };
 		166B54D660206C245F41D1A7 /* FoodSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSearch.swift; sourceTree = "<group>"; };
 		3B28D9DDA31EACD590C5EE85 /* GoalEstimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalEstimator.swift; sourceTree = "<group>"; };
 		455517E8B236CF9F75807DE9 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		572CCB30BBCC048B4F6A24FA /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				00029CB8F0CB63A3B280A606 /* AIRecipeBuilderFlowView.swift */,
 				4C3B1A155223B372773C641B /* AIRecipeBuilderView.swift */,
 				75B35191A341E31A2C2BC2FF /* FindFoodView.swift */,
 				8B8D34D8AA720B465D904051 /* GoalGuideView.swift */,
@@ -275,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48178303AB3414051BCBC380 /* AIRecipeBuilderFlowView.swift in Sources */,
 				894664C5B1EF0FBEE623A4AC /* AIRecipeBuilderView.swift in Sources */,
 				F51E18356DF88FF41C9B49A4 /* AppStore.swift in Sources */,
 				18CA9B234467FBEBD0F9D14A /* Brand.swift in Sources */,

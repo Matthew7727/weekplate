@@ -200,7 +200,7 @@ struct AIRecipeBuilderView: View {
     }
 }
 
-private struct AIRecipeReviewView: View {
+struct AIRecipeReviewView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var store: AppStore
     let request: AIRecipeRequest
