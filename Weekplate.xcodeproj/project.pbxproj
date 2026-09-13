@@ -7,41 +7,62 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		061F6A5B1C546F96934A15E9 /* FoodLookupModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55FA7065613908556571E1C /* FoodLookupModels.swift */; };
 		0EFEF8083039384EA7E1E80C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA73768F48E6015BD1F9F156 /* SettingsView.swift */; };
+		17EA0BC50041531F180E9077 /* GoalGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8D34D8AA720B465D904051 /* GoalGuideView.swift */; };
 		18CA9B234467FBEBD0F9D14A /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA4DB71A17A84769A6DA50 /* Brand.swift */; };
 		1BDC58338FEAFB457B7C1DF1 /* NutritionOCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53175806267DC5A872CECE05 /* NutritionOCR.swift */; };
 		45E9471729A4001874052523 /* OpenFoodFactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D811EECCCC36ED5116DF3D /* OpenFoodFactsService.swift */; };
 		6800406D9C7276BB63F4EC2D /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534CC4D9A98750E048F09029 /* TrendsView.swift */; };
+		7B64E5307FF1395CFB471A4A /* WeekplateUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD74AE893F4C941DB4573B3D /* WeekplateUITests.swift */; };
 		80A6A54BD74077335D5E48FE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43298BA8152FB39640FD96 /* ContentView.swift */; };
 		8D7575F36E6717BF54763A44 /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B1A7AB6959BD18F0A9A4C8 /* Motion.swift */; };
 		932E10EC9DC71E297505BCC0 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455517E8B236CF9F75807DE9 /* Models.swift */; };
+		B4E4F62018A1CBBE4A9B11BA /* GoalEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B28D9DDA31EACD590C5EE85 /* GoalEstimator.swift */; };
 		C99F311B69E955A71BD384E2 /* CameraViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E481A0DBCDF0E49C134FBD /* CameraViews.swift */; };
 		CD08D0392CAA3A362B67C078 /* WeekplateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5339910BEF0C26A730660F1D /* WeekplateApp.swift */; };
 		D0A087C6E1BDF3F383B3330E /* FindFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B35191A341E31A2C2BC2FF /* FindFoodView.swift */; };
 		D306FE5FB11548E99F43D0C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F55CA7623275C06EE0A7FA71 /* Assets.xcassets */; };
 		D9EA9442463CFC123547748D /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467A7554099593AAB9B861C4 /* WeekView.swift */; };
+		E2A48EE8D6503082114EA1D3 /* FoodSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B54D660206C245F41D1A7 /* FoodSearch.swift */; };
 		E53D9B5BA2218E9516648FB8 /* RecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5200332E69864F29F13B4ADC /* RecipesView.swift */; };
 		F51E18356DF88FF41C9B49A4 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F97324879CB032FFD316D7 /* AppStore.swift */; };
 		F6F967D2F176C1DBFA9BE1F6 /* MacroViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2503761AF7B05AC345809B0 /* MacroViews.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9B18C04B6DDA13DD6EB089ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1225498A67117B0F18E3CAE0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F7DAF8D9F0EC5B0DA3DB54E5;
+			remoteInfo = Weekplate;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		166B54D660206C245F41D1A7 /* FoodSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSearch.swift; sourceTree = "<group>"; };
+		3B28D9DDA31EACD590C5EE85 /* GoalEstimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalEstimator.swift; sourceTree = "<group>"; };
 		455517E8B236CF9F75807DE9 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		467A7554099593AAB9B861C4 /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		5200332E69864F29F13B4ADC /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
 		53175806267DC5A872CECE05 /* NutritionOCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionOCR.swift; sourceTree = "<group>"; };
 		5339910BEF0C26A730660F1D /* WeekplateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekplateApp.swift; sourceTree = "<group>"; };
 		534CC4D9A98750E048F09029 /* TrendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsView.swift; sourceTree = "<group>"; };
+		6669C64B968EE8C97BC9EF6F /* WeekplateUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = WeekplateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75B35191A341E31A2C2BC2FF /* FindFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFoodView.swift; sourceTree = "<group>"; };
+		8B8D34D8AA720B465D904051 /* GoalGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalGuideView.swift; sourceTree = "<group>"; };
 		A6F97324879CB032FFD316D7 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		B3AA4DB71A17A84769A6DA50 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
 		B8D811EECCCC36ED5116DF3D /* OpenFoodFactsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsService.swift; sourceTree = "<group>"; };
 		C2503761AF7B05AC345809B0 /* MacroViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroViews.swift; sourceTree = "<group>"; };
 		C5B1A7AB6959BD18F0A9A4C8 /* Motion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Motion.swift; sourceTree = "<group>"; };
 		DA73768F48E6015BD1F9F156 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		DD74AE893F4C941DB4573B3D /* WeekplateUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekplateUITests.swift; sourceTree = "<group>"; };
 		E6E481A0DBCDF0E49C134FBD /* CameraViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViews.swift; sourceTree = "<group>"; };
 		F0515A3761E58BFD0771E86C /* Weekplate.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Weekplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F55CA7623275C06EE0A7FA71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F55FA7065613908556571E1C /* FoodLookupModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodLookupModels.swift; sourceTree = "<group>"; };
 		FB43298BA8152FB39640FD96 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,10 +77,19 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		482C28438CEDE50EE7A6D0A5 /* WeekplateUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DD74AE893F4C941DB4573B3D /* WeekplateUITests.swift */,
+			);
+			path = WeekplateUITests;
+			sourceTree = "<group>";
+		};
 		53B5C7F6FD4BF9C0D8DBB10B = {
 			isa = PBXGroup;
 			children = (
 				D4DFA2B034EE630BE81F4DF8 /* Weekplate */,
+				482C28438CEDE50EE7A6D0A5 /* WeekplateUITests */,
 				F0CB82BB3B3ECAFB1C64743E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				75B35191A341E31A2C2BC2FF /* FindFoodView.swift */,
+				8B8D34D8AA720B465D904051 /* GoalGuideView.swift */,
 				5200332E69864F29F13B4ADC /* RecipesView.swift */,
 				DA73768F48E6015BD1F9F156 /* SettingsView.swift */,
 				534CC4D9A98750E048F09029 /* TrendsView.swift */,
@@ -79,6 +110,9 @@
 		6E75CABF7BCF787D57C30B56 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F55FA7065613908556571E1C /* FoodLookupModels.swift */,
+				166B54D660206C245F41D1A7 /* FoodSearch.swift */,
+				3B28D9DDA31EACD590C5EE85 /* GoalEstimator.swift */,
 				455517E8B236CF9F75807DE9 /* Models.swift */,
 			);
 			path = Core;
@@ -119,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				F0515A3761E58BFD0771E86C /* Weekplate.app */,
+				6669C64B968EE8C97BC9EF6F /* WeekplateUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,6 +171,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		97D7209BF312C4CDA7AF8059 /* WeekplateUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0C964DAF53B5F813972A4C1 /* Build configuration list for PBXNativeTarget "WeekplateUITests" */;
+			buildPhases = (
+				064A01324E8CFFEE2B2D280F /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1350E60259A72FA38C1CB937 /* PBXTargetDependency */,
+			);
+			name = WeekplateUITests;
+			packageProductDependencies = (
+			);
+			productName = WeekplateUITests;
+			productReference = 6669C64B968EE8C97BC9EF6F /* WeekplateUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		F7DAF8D9F0EC5B0DA3DB54E5 /* Weekplate */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CCF632549D2324BDA53176D5 /* Build configuration list for PBXNativeTarget "Weekplate" */;
@@ -163,6 +216,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					97D7209BF312C4CDA7AF8059 = {
+						TestTargetID = F7DAF8D9F0EC5B0DA3DB54E5;
+					};
 					F7DAF8D9F0EC5B0DA3DB54E5 = {
 						DevelopmentTeam = 434WNX65TH;
 						ProvisioningStyle = Automatic;
@@ -184,6 +240,7 @@
 			projectRoot = "";
 			targets = (
 				F7DAF8D9F0EC5B0DA3DB54E5 /* Weekplate */,
+				97D7209BF312C4CDA7AF8059 /* WeekplateUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -200,6 +257,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		064A01324E8CFFEE2B2D280F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B64E5307FF1395CFB471A4A /* WeekplateUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0EFC0D6622959DD262A4AF81 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -209,6 +274,10 @@
 				C99F311B69E955A71BD384E2 /* CameraViews.swift in Sources */,
 				80A6A54BD74077335D5E48FE /* ContentView.swift in Sources */,
 				D0A087C6E1BDF3F383B3330E /* FindFoodView.swift in Sources */,
+				061F6A5B1C546F96934A15E9 /* FoodLookupModels.swift in Sources */,
+				E2A48EE8D6503082114EA1D3 /* FoodSearch.swift in Sources */,
+				B4E4F62018A1CBBE4A9B11BA /* GoalEstimator.swift in Sources */,
+				17EA0BC50041531F180E9077 /* GoalGuideView.swift in Sources */,
 				F6F967D2F176C1DBFA9BE1F6 /* MacroViews.swift in Sources */,
 				932E10EC9DC71E297505BCC0 /* Models.swift in Sources */,
 				8D7575F36E6717BF54763A44 /* Motion.swift in Sources */,
@@ -224,7 +293,31 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1350E60259A72FA38C1CB937 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F7DAF8D9F0EC5B0DA3DB54E5 /* Weekplate */;
+			targetProxy = 9B18C04B6DDA13DD6EB089ED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		1103E983F14665D237311142 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mattecc.weekplate.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Weekplate;
+			};
+			name = Release;
+		};
 		1AD9281AEFAB8B1F45A26063 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -241,6 +334,22 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
+		};
+		6A948751FF72A5AC98E94573 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mattecc.weekplate.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Weekplate;
+			};
+			name = Debug;
 		};
 		7C81ECFDECD00D5DBB402335 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -411,6 +520,15 @@
 			buildConfigurations = (
 				7D30EC0592FBD480562226DC /* Debug */,
 				1AD9281AEFAB8B1F45A26063 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F0C964DAF53B5F813972A4C1 /* Build configuration list for PBXNativeTarget "WeekplateUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A948751FF72A5AC98E94573 /* Debug */,
+				1103E983F14665D237311142 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

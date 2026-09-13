@@ -28,17 +28,17 @@ struct MacroProgressRow: View {
         VStack(spacing: 8) {
             HStack {
                 Circle().fill(kind.color).frame(width: 9, height: 9)
-                Text(kind.rawValue).font(.system(size: 15, weight: .bold, design: .rounded))
+                Text(kind.rawValue).font(.system(size: 15, weight: .bold))
                 Spacer()
                 Text("\(consumed.formatted(.number.precision(.fractionLength(0...1)))) / \(goal.formatted(.number.precision(.fractionLength(0...1)))) g")
-                    .font(.system(size: 13, weight: .bold, design: .rounded))
+                    .font(.system(size: 13, weight: .bold))
                     .contentTransition(.numericText())
                     .foregroundStyle(.secondary)
             }
             GeometryReader { proxy in
                 ZStack(alignment: .leading) {
-                    Capsule().fill(kind.color.opacity(0.16))
-                    Capsule().fill(kind.color)
+                    Rectangle().fill(kind.color.opacity(0.16))
+                    Rectangle().fill(kind.color)
                         .frame(width: proxy.size.width * min(consumed / max(goal, 1), 1))
                 }
             }

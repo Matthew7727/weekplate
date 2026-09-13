@@ -44,7 +44,7 @@ struct ContentView: View {
                     } label: {
                         VStack(spacing: 5) {
                             Image(systemName: item.symbol).font(.system(size: 19, weight: .bold))
-                            Text(item.rawValue).font(.system(size: 10, weight: .bold, design: .rounded))
+                            Text(item.rawValue).font(.system(size: 10, weight: .bold))
                         }
                         .foregroundStyle(tab == item ? Brand.coral : Brand.muted(scheme))
                         .frame(maxWidth: .infinity)
@@ -73,7 +73,8 @@ struct ContentView: View {
         .foregroundStyle(Brand.ink(scheme))
         .animation(.spring(response: 0.45, dampingFraction: 0.78), value: store.toast?.id)
         .task {
-            try? await Task.sleep(for: .seconds(reduceMotion ? 0.35 : (hasSeenSplash ? 1.15 : 2.1)))
+            // Leave a short reading pause after the bars and wordmark settle.
+            try? await Task.sleep(for: .seconds(reduceMotion ? 0.35 : (hasSeenSplash ? 1.65 : 2.6)))
             withAnimation(reduceMotion ? nil : .spring(response: 0.55, dampingFraction: 0.88)) { showSplash = false }
             hasSeenSplash = true
         }

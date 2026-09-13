@@ -83,6 +83,21 @@ struct ActionToast: Identifiable {
         announce("Goals set!", symbol: "target")
     }
 
+    func setGoalPeriod(_ period: GoalPeriod) {
+        guard data.goalPeriod != period else { return }
+        var next = data
+        next.goalPeriod = period
+        data = next
+    }
+
+    func setEstimatedGoal(_ profile: GoalProfile) {
+        guard let estimate = GoalEstimator.estimate(profile) else { return }
+        let displayPeriod = data.goalPeriod
+        setMacroGoal(estimate.dailyMacros, period: .daily)
+        data.goalPeriod = displayPeriod
+        data.goalProfile = profile
+    }
+
     func logPlanned(_ item: PlanItem) {
         guard item.loggedEntryID == nil,
               let recipe = data.recipes.first(where: { $0.id == item.recipeID }),

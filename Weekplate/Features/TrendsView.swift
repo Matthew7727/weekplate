@@ -24,56 +24,17 @@ struct TrendsView: View {
     }
 
     private var completedWeeks: [WeekPoint] { Array(weeks.dropLast()) }
-    private var averageAdherence: Double? {
-        let active = completedWeeks.filter { $0.consumed > 0 }
-        guard !active.isEmpty else { return nil }
-        return active.reduce(0) { $0 + WeekMath.adherence($1.consumed, goal: $1.goal) } / Double(active.count)
-    }
     private var weights: [WeightEntry] { store.data.weights.sorted { $0.date < $1.date } }
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 ScreenHeading(eyebrow: "The bigger picture", title: "TRENDS.",
-                              subtitle: "See your rhythm beyond one day.")
-                WCard(color: Brand.lilac) {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Eyebrow(text: "Weeks near target", color: .black.opacity(0.65))
-                        Text(averageAdherence.map { "\(Int(($0 * 100).rounded()))%" } ?? "—")
-                            .font(.system(size: 48, weight: .black, design: .rounded))
-                        Text("Average closeness to your weekly goal across completed weeks with logs.")
-                            .font(.subheadline)
-                    }
-                    .foregroundStyle(.black)
-                }
+                              subtitle: "See your rhythm beyond one day.", alignment: .center)
+                rhythmCard
                 Eyebrow(text: "Last 8 weeks", color: Brand.blue)
-                ForEach(weeks) { week in
-                    WCard {
-                        VStack(alignment: .leading, spacing: 10) {
-                            HStack {
-                                Text(week.id.formatted(.dateTime.day().month(.abbreviated)))
-                                    .font(.headline)
-                                Spacer()
-                                Text("\(week.consumed.kcalText) / \(week.goal.kcalText)")
-                                    .font(.subheadline.bold())
-                            }
-                            GeometryReader { proxy in
-                                ZStack(alignment: .leading) {
-                                    Capsule().fill(Brand.blue.opacity(0.15))
-                                    Capsule().fill(Brand.coral)
-                                        .frame(width: proxy.size.width * min(week.consumed / max(week.goal, 1), 1))
-                                }
-                            }
-                            .frame(height: 9)
-                            .animation(.spring(response: 0.6, dampingFraction: 0.8), value: week.consumed)
-                            ForEach(MacroKind.allCases) { kind in
-                                MacroProgressRow(kind: kind,
-                                                 consumed: kind.amount(in: week.macros),
-                                                 goal: kind.amount(in: week.macroGoal))
-                            }
-                        }
-                    }
-                }
+                weeklyChart
+                weeklyReadout
                 Eyebrow(text: "Weight trend", color: Brand.blue)
                 if weights.isEmpty {
                     WCard { Text("Add weigh-ins in You to see a trend and a four-week projection.") }
@@ -111,6 +72,81 @@ struct TrendsView: View {
                 }
             }
             .padding(20)
+        }
+    }
+
+    private var rhythmCard: some View {
+        let loggedWeeks = completedWeeks.filter { $0.consumed > 0 }
+        let average = loggedWeeks.isEmpty ? nil : loggedWeeks.reduce(0) { $0 + $1.consumed } / Double(loggedWeeks.count)
+        let best = loggedWeeks.max { WeekMath.adherence($0.consumed, goal: $0.goal) < WeekMath.adherence($1.consumed, goal: $1.goal) }
+        return WCard(color: Brand.blue) {
+            VStack(alignment: .center, spacing: 10) {
+                Eyebrow(text: "Your rhythm", color: .white.opacity(0.72))
+                Text(average.map { $0.kcalText } ?? "—")
+                    .font(.system(size: 44, weight: .black))
+                Text(average == nil ? "Log a full week to see your average." : "average kcal across your logged weeks")
+                    .font(.subheadline)
+                    .multilineTextAlignment(.center)
+                Divider().overlay(.white.opacity(0.3))
+                HStack(spacing: 22) {
+                    VStack(spacing: 2) {
+                        Text("\(loggedWeeks.count)").font(.title3.bold())
+                        Text("weeks logged").font(.caption)
+                    }
+                    VStack(spacing: 2) {
+                        Text(best?.id.formatted(.dateTime.day().month(.abbreviated)) ?? "—")
+                            .font(.title3.bold())
+                        Text("closest week").font(.caption)
+                    }
+                }
+                .foregroundStyle(.white.opacity(0.9))
+            }
+            .frame(maxWidth: .infinity)
+            .foregroundStyle(.white)
+        }
+    }
+
+    private var weeklyChart: some View {
+        let highest = max(weeks.map(\.goal).max() ?? 1, weeks.map(\.consumed).max() ?? 1)
+        return WCard {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Text("Calories by week").font(.headline)
+                    Spacer()
+                    Text("Target shown as line").font(.caption).foregroundStyle(.secondary)
+                }
+                HStack(alignment: .bottom, spacing: 8) {
+                    ForEach(weeks) { week in
+                        VStack(spacing: 7) {
+                            GeometryReader { proxy in
+                                ZStack(alignment: .bottom) {
+                                    Rectangle().fill(Brand.blue.opacity(0.12)).frame(height: proxy.size.height)
+                                    Rectangle().fill(week.consumed > week.goal ? Brand.coral : Brand.blue)
+                                        .frame(height: max(4, proxy.size.height * min(week.consumed / highest, 1)))
+                                    Rectangle().fill(Brand.coral).frame(height: 2)
+                                        .offset(y: -proxy.size.height * (1 - min(week.goal / highest, 1)))
+                                }
+                            }
+                            .frame(height: 130)
+                            Text(week.id.formatted(.dateTime.month(.abbreviated)))
+                                .font(.caption2.bold())
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                }
+            }
+        }
+    }
+
+    private var weeklyReadout: some View {
+        return WCard {
+            VStack(alignment: .leading, spacing: 8) {
+                Eyebrow(text: "Trend note", color: Brand.blue)
+                Text("Look for a steady pattern, not a perfect line.")
+                    .font(.headline)
+                Text("Trends are here to show direction, not perfection. Keep logging and the picture gets clearer.")
+                    .font(.subheadline).foregroundStyle(.secondary)
+            }
         }
     }
 }

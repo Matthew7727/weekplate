@@ -23,9 +23,34 @@ struct MacroTotals: Codable, Equatable {
 struct Ingredient: Identifiable, Codable, Equatable {
     var id = UUID()
     var name: String
-    var grams: Double
-    var kcalPer100g: Double
+    var grams: Double // Stored name retained for existing recipe files; this is ml when unit is millilitres.
+    var kcalPer100g: Double // Per 100 of the selected unit.
     var macrosPer100g: MacroTotals? = nil
+    var unit: FoodUnit = .grams
+
+    init(id: UUID = UUID(), name: String, grams: Double, kcalPer100g: Double,
+         macrosPer100g: MacroTotals? = nil, unit: FoodUnit = .grams) {
+        self.id = id
+        self.name = name
+        self.grams = grams
+        self.kcalPer100g = kcalPer100g
+        self.macrosPer100g = macrosPer100g
+        self.unit = unit
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, name, grams, kcalPer100g, macrosPer100g, unit
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(UUID.self, forKey: .id)
+        name = try values.decode(String.self, forKey: .name)
+        grams = try values.decode(Double.self, forKey: .grams)
+        kcalPer100g = try values.decode(Double.self, forKey: .kcalPer100g)
+        macrosPer100g = try values.decodeIfPresent(MacroTotals.self, forKey: .macrosPer100g)
+        unit = try values.decodeIfPresent(FoodUnit.self, forKey: .unit) ?? .grams
+    }
 
     var calories: Double { grams * (kcalPer100g > 0 ? kcalPer100g : (macrosPer100g?.calories ?? 0)) / 100 }
     var macros: MacroTotals? { macrosPer100g?.scaled(by: grams / 100) }
@@ -76,6 +101,8 @@ struct FoodEntry: Identifiable, Codable, Equatable {
     var servings: Double = 1
     var recipeID: UUID? = nil
     var macros: MacroTotals? = nil
+    var quantity: Double? = nil
+    var quantityUnit: FoodUnit? = nil
 }
 
 enum Meal: String, CaseIterable, Codable, Identifiable {
@@ -86,7 +113,7 @@ enum Meal: String, CaseIterable, Codable, Identifiable {
     var id: String { rawValue }
 }
 
-enum EntrySource: String, Codable {
+enum EntrySource: String, Codable, CaseIterable {
     case recipe, packaged, manual
 }
 
@@ -136,6 +163,7 @@ struct AppData: Codable {
     var dailyMacroGoal: MacroTotals = .defaultDaily
     var macroGoalHistory: [MacroGoalChange] = []
     var goalPeriod: GoalPeriod = .weekly
+    var goalProfile: GoalProfile? = nil
     var targetWeightKg: Double? = nil
     var theme: AppTheme = .system
 
@@ -143,7 +171,7 @@ struct AppData: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case recipes, foodEntries, plan, weights, weeklyGoal, goalHistory
-        case dailyMacroGoal, macroGoalHistory, goalPeriod, targetWeightKg, theme
+        case dailyMacroGoal, macroGoalHistory, goalPeriod, goalProfile, targetWeightKg, theme
     }
 
     init(from decoder: Decoder) throws {
@@ -158,6 +186,7 @@ struct AppData: Codable {
             ?? .defaultDaily.scaled(by: weeklyGoal / 14_000)
         macroGoalHistory = try container.decodeIfPresent([MacroGoalChange].self, forKey: .macroGoalHistory) ?? []
         goalPeriod = try container.decodeIfPresent(GoalPeriod.self, forKey: .goalPeriod) ?? .weekly
+        goalProfile = try container.decodeIfPresent(GoalProfile.self, forKey: .goalProfile)
         targetWeightKg = try container.decodeIfPresent(Double.self, forKey: .targetWeightKg)
         theme = try container.decodeIfPresent(AppTheme.self, forKey: .theme) ?? .system
     }

@@ -12,7 +12,7 @@ struct RecipesView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 ScreenHeading(eyebrow: "Your kitchen, organised", title: "RECIPES.",
-                              subtitle: "Build a batch. Flex the portions.")
+                              subtitle: "Build a batch. Flex the portions.", alignment: .center)
                 HStack {
                     PillButton(title: "New recipe", symbol: "plus") { showNew = true }
                     Button { showImporter = true } label: {
@@ -25,7 +25,7 @@ struct RecipesView: View {
                         VStack(alignment: .leading, spacing: 9) {
                             Image(systemName: "book.closed.fill").font(.largeTitle)
                             Text("Start with Sunday’s staples.")
-                                .font(.system(size: 23, weight: .black, design: .rounded))
+                                .font(.system(size: 23, weight: .black))
                             Text("Add a recipe or import your existing text file. You can add calorie values as you go.")
                                 .font(.subheadline)
                         }
@@ -36,11 +36,11 @@ struct RecipesView: View {
                     Button { selectedRecipe = recipe } label: {
                         WCard {
                             HStack(alignment: .top, spacing: 15) {
-                                RoundedRectangle(cornerRadius: 17).fill(Brand.coral)
+                                Rectangle().fill(Brand.coral)
                                     .frame(width: 54, height: 54)
                                     .overlay(Image(systemName: "fork.knife").font(.title2).foregroundStyle(.white))
                                 VStack(alignment: .leading, spacing: 5) {
-                                    Text(recipe.name).font(.system(size: 19, weight: .black, design: .rounded))
+                                    Text(recipe.name).font(.system(size: 19, weight: .black))
                                     Text("Batch of \(recipe.batchServings.portionText) · \(recipe.ingredients.count) ingredients")
                                         .font(.caption).foregroundStyle(.secondary)
                                     Text(recipe.hasNutrition ? "\(recipe.caloriesPerServing.kcalText) kcal / portion" : "Add nutrition to log")
@@ -100,14 +100,15 @@ struct RecipeDetailView: View {
                 if let recipe {
                     VStack(alignment: .leading, spacing: 20) {
                         ScreenHeading(eyebrow: "Batch recipe", title: recipe.name.uppercased(),
-                                      subtitle: "Original batch makes \(recipe.batchServings.portionText) portions")
+                                      subtitle: "Original batch makes \(recipe.batchServings.portionText) portions",
+                                      alignment: .center)
                         WCard(color: Brand.lime) {
                             VStack(alignment: .leading, spacing: 10) {
                                 Eyebrow(text: "Make it yours", color: .black.opacity(0.6))
                                 Stepper("\(portions.portionText) portions", value: $portions, in: 0.5...20, step: 0.5)
                                     .font(.title3.bold())
                                 Text(recipe.hasNutrition ? "\(recipe.calories(for: portions).kcalText) kcal" : "Nutrition needed")
-                                    .font(.system(size: 35, weight: .black, design: .rounded))
+                                    .font(.system(size: 35, weight: .black))
                                     .contentTransition(.numericText())
                             }
                             .foregroundStyle(.black)
@@ -129,7 +130,7 @@ struct RecipeDetailView: View {
                                     HStack {
                                         Text(ingredient.name).font(.headline)
                                         Spacer()
-                                        Text("\(recipe.ingredientGrams(ingredient, for: portions).rounded().formatted()) g")
+                                        Text("\(recipe.ingredientGrams(ingredient, for: portions).rounded().formatted()) \(ingredient.unit.rawValue)")
                                             .font(.headline).foregroundStyle(Brand.blue)
                                     }
                                 }
@@ -295,10 +296,14 @@ private struct IngredientEditorRow: View {
                 }
             }
             HStack {
-                TextField("Batch grams", value: $ingredient.grams, format: .number)
+                TextField("Batch amount", value: $ingredient.grams, format: .number)
                     .keyboardType(.decimalPad)
-                Text("g")
-                TextField("Kcal / 100g", value: $ingredient.kcalPer100g, format: .number)
+                Picker("Unit", selection: $ingredient.unit) {
+                    Text("g").tag(FoodUnit.grams)
+                    Text("ml").tag(FoodUnit.millilitres)
+                }
+                .labelsHidden().pickerStyle(.menu)
+                TextField("Kcal / 100\(ingredient.unit.rawValue)", value: $ingredient.kcalPer100g, format: .number)
                     .keyboardType(.decimalPad)
             }
             if ingredient.macrosPer100g == nil {
@@ -306,9 +311,9 @@ private struct IngredientEditorRow: View {
                     .font(.caption.bold()).foregroundStyle(Brand.blue)
             } else {
                 HStack {
-                    TextField("C /100g", value: macroBinding(\.carbs), format: .number)
-                    TextField("P /100g", value: macroBinding(\.protein), format: .number)
-                    TextField("F /100g", value: macroBinding(\.fat), format: .number)
+                    TextField("C /100\(ingredient.unit.rawValue)", value: macroBinding(\.carbs), format: .number)
+                    TextField("P /100\(ingredient.unit.rawValue)", value: macroBinding(\.protein), format: .number)
+                    TextField("F /100\(ingredient.unit.rawValue)", value: macroBinding(\.fat), format: .number)
                 }
                 .keyboardType(.decimalPad)
                 Button("Remove macro values") { ingredient.macrosPer100g = nil }

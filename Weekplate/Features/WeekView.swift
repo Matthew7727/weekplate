@@ -40,18 +40,154 @@ struct WeekView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
-                ScreenHeading(eyebrow: "Meal prep, meet momentum", title: "YOUR WEEK.",
-                              subtitle: "Plan it Sunday. Make it yours every day.")
+                ScreenHeading(eyebrow: period == .daily ? "Daily focus" : "Meal prep, meet momentum",
+                              title: period == .daily ? "YOUR DAY." : "YOUR WEEK.",
+                              subtitle: period == .daily ? "One day at a time. Keep your momentum." : "Plan it Sunday. Make it yours every day.",
+                              alignment: .center)
                 periodSwitcher
+                if period == .daily {
+                    dailyDateHeader
+                } else {
+                    weekNavigator
+                }
+                hero
+                Group {
+                    if period == .daily {
+                        dailyLowerContent
+                    } else {
+                        weeklyLowerContent
+                    }
+                }
+                .id(period)
+                .transition(.opacity.combined(with: .move(edge: .bottom)))
+                .animation(.easeOut(duration: 0.28), value: period)
+            }
+            .padding(20)
+        }
+        .sheet(isPresented: $showLog) { ManualFoodView(store: store, date: selectedDay) }
+        .sheet(isPresented: $showPlan) { PlanRecipeView(store: store, date: selectedDay) }
+    }
+
+    @ViewBuilder private var dailyLowerContent: some View {
+        MacroSummaryCard(consumed: consumedMacros, goal: macroGoal,
+                         missingEntries: missingMacroCount)
+        dailyMeals
+        PillButton(title: "Log something else", symbol: "plus.circle.fill") { showLog = true }
+            .padding(.bottom, 25)
+    }
+
+    @ViewBuilder private var weeklyLowerContent: some View {
+        weeklyOverview
+        HStack {
+            VStack(alignment: .leading, spacing: 3) {
+                Eyebrow(text: selectedDay.formatted(.dateTime.weekday(.wide)), color: Brand.blue)
+                Text("On the plate").font(.system(size: 25, weight: .black))
+            }
+            Spacer()
+            PillButton(title: "Plan", symbol: "plus", color: Brand.blue) { showPlan = true }
+        }
+        if selectedPlans.isEmpty && selectedEntries.isEmpty {
+            WCard {
+                VStack(alignment: .leading, spacing: 8) {
+                    Image(systemName: "takeoutbag.and.cup.and.straw.fill")
+                        .font(.largeTitle).foregroundStyle(Brand.coral)
+                    Text("A blank plate, for now.").font(.headline)
+                    Text("Plan a recipe or log something you ate.").foregroundStyle(.secondary)
+                }
+            }
+        }
+        ForEach(selectedPlans) { item in planRow(item) }
+        ForEach(selectedEntries) { entry in entryRow(entry) }
+        PillButton(title: "Log something else", symbol: "plus.circle.fill") { showLog = true }
+            .padding(.bottom, 25)
+    }
+
+    private var dailyBody: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 22) {
+                ScreenHeading(eyebrow: "Daily focus", title: "YOUR DAY.",
+                              subtitle: "One day at a time. Keep your momentum.")
+                periodSwitcher
+                dailyDateHeader
                 hero
                 MacroSummaryCard(consumed: consumedMacros, goal: macroGoal,
                                  missingEntries: missingMacroCount)
+                    .id(period)
+                dailyMeals
+                PillButton(title: "Log something else", symbol: "plus.circle.fill") { showLog = true }
+                    .padding(.bottom, 25)
+            }
+            .padding(20)
+        }
+        .sheet(isPresented: $showLog) { ManualFoodView(store: store, date: selectedDay) }
+        .sheet(isPresented: $showPlan) { PlanRecipeView(store: store, date: selectedDay) }
+    }
+
+    private var dailyDateHeader: some View {
+        HStack {
+            Button { moveDay(-1) } label: { Image(systemName: "chevron.left") }
+            Spacer()
+            VStack(spacing: 3) {
+                Text(selectedDay.formatted(.dateTime.weekday(.wide)))
+                    .font(.system(size: 22, weight: .black))
+                Text(selectedDay.formatted(.dateTime.month(.wide).day().year()))
+                    .font(.subheadline.weight(.semibold)).foregroundStyle(.secondary)
+            }
+            Spacer()
+            Button { moveDay(1) } label: { Image(systemName: "chevron.right") }
+        }
+        .buttonStyle(.plain)
+        .contentShape(Rectangle())
+        .gesture(DragGesture(minimumDistance: 30).onEnded { value in
+            guard abs(value.translation.width) > abs(value.translation.height) else { return }
+            moveDay(value.translation.width < 0 ? 1 : -1)
+        })
+    }
+
+    private var dailyMeals: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Eyebrow(text: "Today's plate", color: Brand.blue)
+                Spacer()
+                Button("Plan") { showPlan = true }
+                    .font(.subheadline.bold()).foregroundStyle(Brand.blue)
+            }
+            if selectedPlans.isEmpty && selectedEntries.isEmpty {
+                WCard {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Image(systemName: "takeoutbag.and.cup.and.straw.fill")
+                            .font(.largeTitle).foregroundStyle(Brand.coral)
+                        Text("A blank plate, for now.").font(.headline)
+                        Text("Plan a meal or log something you ate.")
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
+            ForEach(selectedPlans) { item in planRow(item) }
+            ForEach(selectedEntries) { entry in entryRow(entry) }
+        }
+    }
+
+    private func moveDay(_ amount: Int) {
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+            selectedDay = WeekMath.calendar.date(byAdding: .day, value: amount, to: selectedDay) ?? selectedDay
+        }
+    }
+
+    private var weeklyBody: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 22) {
+                ScreenHeading(eyebrow: "Meal prep, meet momentum", title: "YOUR WEEK.",
+                              subtitle: "Plan it Sunday. Make it yours every day.")
+                periodSwitcher
                 weekNavigator
-                dayStrip
+                hero
+                    .id(period)
+                weeklyOverview
                 HStack {
                     VStack(alignment: .leading, spacing: 3) {
                         Eyebrow(text: selectedDay.formatted(.dateTime.weekday(.wide)), color: Brand.blue)
-                        Text("On the plate").font(.system(size: 25, weight: .black, design: .rounded))
+                        Text("On the plate").font(.system(size: 25, weight: .black))
                     }
                     Spacer()
                     PillButton(title: "Plan", symbol: "plus", color: Brand.blue) { showPlan = true }
@@ -87,21 +223,22 @@ struct WeekView: View {
             ForEach(GoalPeriod.allCases) { option in
                 Button {
                     withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                        store.data.goalPeriod = option
+                        store.setGoalPeriod(option)
                     }
                 } label: {
                     Text(option.rawValue.uppercased())
-                        .font(.system(size: 12, weight: .black, design: .rounded))
+                        .font(.system(size: 12, weight: .black))
                         .tracking(1.2)
                         .foregroundStyle(period == option ? .white : .secondary)
                         .padding(.horizontal, 20).padding(.vertical, 11)
-                        .background(period == option ? Brand.blue : .clear, in: Capsule())
+                        .background(period == option ? Brand.blue : .clear, in: Rectangle())
                 }
                 .buttonStyle(MotionButtonStyle())
             }
         }
         .padding(5)
-        .background(Brand.blue.opacity(0.12), in: Capsule())
+        .background(Brand.blue.opacity(0.12), in: Rectangle())
+        .frame(maxWidth: .infinity)
     }
 
     private var hero: some View {
@@ -114,15 +251,15 @@ struct WeekView: View {
                 }
                 HStack(alignment: .firstTextBaseline, spacing: 5) {
                     Text(consumed.kcalText)
-                        .font(.system(size: 49, weight: .black, design: .rounded))
+                        .font(.system(size: 49, weight: .black))
                         .contentTransition(.numericText())
                     Text("/ \(macroGoal.calories.kcalText) kcal")
-                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                        .font(.system(size: 15, weight: .bold))
                 }
                 GeometryReader { proxy in
                     ZStack(alignment: .leading) {
-                        Capsule().fill(.black.opacity(0.15))
-                        Capsule().fill(Brand.coral)
+                        Rectangle().fill(.black.opacity(0.15))
+                        Rectangle().fill(Brand.coral)
                             .frame(width: proxy.size.width * min(consumed / max(macroGoal.calories, 1), 1))
                     }
                 }
@@ -142,7 +279,7 @@ struct WeekView: View {
             Button { shift(-7) } label: { Image(systemName: "chevron.left") }
             Spacer()
             Text("\(days[0].formatted(.dateTime.day().month(.abbreviated))) – \(days[6].formatted(.dateTime.day().month(.abbreviated)))")
-                .font(.system(size: 18, weight: .black, design: .rounded))
+                .font(.system(size: 18, weight: .black))
             Spacer()
             Button { shift(7) } label: { Image(systemName: "chevron.right") }
         }
@@ -157,19 +294,68 @@ struct WeekView: View {
                 Button { withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) { selectedDay = day } } label: {
                     VStack(spacing: 8) {
                         Text(day.formatted(.dateTime.weekday(.narrow)))
-                            .font(.system(size: 11, weight: .black, design: .rounded))
+                            .font(.system(size: 11, weight: .black))
                         Text(day.formatted(.dateTime.day()))
-                            .font(.system(size: 17, weight: .black, design: .rounded))
-                        Capsule()
+                            .font(.system(size: 17, weight: .black))
+                        Rectangle()
                             .fill(value > 0 ? Brand.coral : Color.gray.opacity(0.3))
                             .frame(height: 5)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12).padding(.horizontal, 3)
-                    .background(isSelected ? Brand.blue : Color.clear, in: RoundedRectangle(cornerRadius: 17))
+                    .background(isSelected ? Brand.blue : Color.clear, in: Rectangle())
                     .foregroundStyle(isSelected ? .white : .primary)
                 }
                 .buttonStyle(MotionButtonStyle())
+            }
+        }
+    }
+
+    private var weeklyOverview: some View {
+        let dailyTarget = macroGoal.calories / 7
+        let highest = max(dailyTarget, days.map { WeekMath.total(store.data.foodEntries, on: $0) }.max() ?? 0)
+        return WCard {
+            VStack(alignment: .leading, spacing: 14) {
+                HStack(alignment: .firstTextBaseline) {
+                    Eyebrow(text: "Seven-day run", color: Brand.blue)
+                    Spacer()
+                    Text("\(WeekMath.adherence(consumed, goal: macroGoal.calories) * 100, specifier: "%.0f")% on target")
+                        .font(.caption.bold()).foregroundStyle(Brand.blue)
+                }
+                HStack(alignment: .bottom, spacing: 7) {
+                    ForEach(days, id: \.self) { day in
+                        let value = WeekMath.total(store.data.foodEntries, on: day)
+                        Button {
+                            withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) { selectedDay = day }
+                        } label: {
+                            VStack(spacing: 7) {
+                                GeometryReader { proxy in
+                                    VStack {
+                                        Spacer(minLength: 0)
+                                        Rectangle()
+                                            .fill(WeekMath.calendar.isDate(day, inSameDayAs: selectedDay) ? Brand.blue : Brand.coral)
+                                            .frame(height: max(value > 0 ? 6 : 2,
+                                                               proxy.size.height * min(value / max(highest, 1), 1)))
+                                    }
+                                }
+                                .frame(height: 112)
+                                Text(day.formatted(.dateTime.weekday(.narrow)))
+                                    .font(.caption2.bold())
+                            }
+                            .frame(maxWidth: .infinity)
+                            .foregroundStyle(.primary)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                HStack {
+                    Text("0")
+                    Spacer()
+                    Text("Daily target \(dailyTarget.kcalText) kcal")
+                    Spacer()
+                    Text("\(highest.kcalText)")
+                }
+                .font(.caption2).foregroundStyle(.secondary)
             }
         }
     }
@@ -178,7 +364,7 @@ struct WeekView: View {
         let recipe = store.data.recipes.first { $0.id == item.recipeID }
         return WCard {
             HStack(spacing: 12) {
-                RoundedRectangle(cornerRadius: 13).fill(Brand.lilac).frame(width: 43, height: 43)
+                Rectangle().fill(Brand.lilac).frame(width: 43, height: 43)
                     .overlay(Image(systemName: "fork.knife").foregroundStyle(.black))
                 VStack(alignment: .leading, spacing: 3) {
                     Text(recipe?.name ?? "Deleted recipe").font(.headline)
@@ -212,6 +398,10 @@ struct WeekView: View {
                     Text(entry.name).font(.headline)
                     Text("\(entry.meal.rawValue) · \(entry.source.rawValue.capitalized)")
                         .font(.caption).foregroundStyle(.secondary)
+                    if let quantity = entry.quantity, let unit = entry.quantityUnit {
+                        Text("\(quantity.portionText) \(unit.rawValue)")
+                            .font(.caption2).foregroundStyle(.secondary)
+                    }
                     if let macros = entry.macros {
                         Text("C \(macros.carbs.portionText) · P \(macros.protein.portionText) · F \(macros.fat.portionText) g")
                             .font(.caption2).foregroundStyle(Brand.blue)

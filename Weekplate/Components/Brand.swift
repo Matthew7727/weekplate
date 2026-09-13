@@ -1,15 +1,16 @@
 import SwiftUI
 
 enum Brand {
-    static let coral = Color(red: 1.0, green: 0.39, blue: 0.29)
-    static let lime = Color(red: 0.78, green: 0.94, blue: 0.36)
-    static let blue = Color(red: 0.30, green: 0.42, blue: 0.96)
-    static let lilac = Color(red: 0.78, green: 0.69, blue: 0.97)
+    // A sharp, graphic palette. Colour is used as a signal, not decoration.
+    static let coral = Color(red: 0.88, green: 0.08, blue: 0.25) // signal red
+    static let lime = Color(red: 1.0, green: 0.82, blue: 0.20) // signal yellow
+    static let blue = Color(red: 0.12, green: 0.22, blue: 0.82) // cobalt
+    static let lilac = Color(red: 0.69, green: 0.55, blue: 0.94) // ultraviolet
     static func background(_ scheme: ColorScheme) -> Color {
-        scheme == .dark ? Color(red: 0.055, green: 0.065, blue: 0.085) : Color(red: 0.965, green: 0.96, blue: 0.94)
+        scheme == .dark ? Color(red: 0.035, green: 0.045, blue: 0.075) : Color(red: 0.96, green: 0.955, blue: 0.92)
     }
     static func surface(_ scheme: ColorScheme) -> Color {
-        scheme == .dark ? Color(red: 0.12, green: 0.13, blue: 0.16) : .white
+        scheme == .dark ? Color(red: 0.075, green: 0.09, blue: 0.14) : .white
     }
     static func ink(_ scheme: ColorScheme) -> Color {
         scheme == .dark ? .white : Color(red: 0.10, green: 0.12, blue: 0.15)
@@ -28,7 +29,8 @@ struct WCard<Content: View>: View {
         content
             .padding(18)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(color ?? Brand.surface(scheme), in: RoundedRectangle(cornerRadius: 24))
+            .background(color ?? Brand.surface(scheme), in: Rectangle())
+            .overlay(Rectangle().stroke(Brand.ink(scheme).opacity(0.14), lineWidth: 1))
     }
 }
 
@@ -37,7 +39,7 @@ struct Eyebrow: View {
     var color: Color = Brand.coral
     var body: some View {
         Text(text.uppercased())
-            .font(.system(size: 11, weight: .black, design: .rounded))
+            .font(.system(size: 11, weight: .black))
             .tracking(2.2)
             .foregroundStyle(color)
     }
@@ -52,10 +54,10 @@ struct PillButton: View {
     var body: some View {
         Button(action: action) {
             Label(title, systemImage: symbol)
-                .font(.system(size: 15, weight: .bold, design: .rounded))
+                .font(.system(size: 15, weight: .bold))
                 .foregroundStyle(.white)
                 .padding(.horizontal, 18).padding(.vertical, 13)
-                .background(color, in: Capsule())
+                .background(color, in: Rectangle())
         }
         .buttonStyle(MotionButtonStyle())
     }
@@ -65,15 +67,19 @@ struct ScreenHeading: View {
     let eyebrow: String
     let title: String
     let subtitle: String
+    var alignment: HorizontalAlignment = .leading
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: alignment, spacing: 6) {
             Eyebrow(text: eyebrow)
             Text(title)
-                .font(.system(size: 38, weight: .black, design: .rounded))
-                .tracking(-1.8)
-            Text(subtitle).font(.subheadline).foregroundStyle(.secondary)
+                .font(.system(size: 38, weight: .black))
+                .tracking(-1.4)
+            Text(subtitle)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(alignment == .center ? .center : .leading)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: alignment == .center ? .center : .leading)
     }
 }
 

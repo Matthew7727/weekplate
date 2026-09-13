@@ -5,16 +5,17 @@ A bold, on-device iPhone app for weekly calorie tracking and Sunday meal prep.
 ## What works
 
 - Daily or Monday–Sunday macro goals for carbs, protein and fat, with calorie targets calculated from 4/4/9 kcal per gram
+- A three-step goal guide that estimates resting energy, TDEE and a gradual training-aware calorie/macro starting point
 - Daily/weekly calorie and macro progress; existing calorie-only logs remain intact
 - Batch recipes with adjustable portions, ingredient weights, calories and macros
 - Meal planning by day and meal, then one-tap logging of a planned portion
 - Import `.txt` recipes as editable drafts (original text is kept in notes)
-- Packaged-food text search through Search-a-licious and barcode lookup through Open Food Facts
+- Curated packaged-food text search through Search-a-licious and barcode lookup through Open Food Facts, including per-100ml drinks
 - Camera barcode scanning and nutrition-label photography with calorie/macro OCR and manual review before logging
 - Weekly adherence history, weight logs, and a four-week straight-line weight trend
 - Animated launch, playful tap and logging feedback, and light, dark, and system themes
 
-All personal data stays in the app's local Application Support folder. Packaged-food lookup needs an internet connection and depends on community-provided nutrition data. Check product labels; imported text recipes need calorie values before logging.
+All personal data stays in the app's local Application Support folder. Packaged-food lookup needs an internet connection and depends on community-provided nutrition data. Check product labels; imported text recipes need calorie values before logging. The goal guide is an adult planning estimate, not medical advice; adjust it using your own trend and professional guidance where needed.
 
 ## Open in Xcode
 

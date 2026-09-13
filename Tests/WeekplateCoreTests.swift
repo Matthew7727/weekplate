@@ -79,4 +79,48 @@ final class WeekplateCoreTests: XCTestCase {
         XCTAssertEqual(decoded.dailyMacroGoal.calories, 1_800)
         XCTAssertEqual(decoded.goal(for: Date()), 12_600)
     }
+
+    func testDrinkAmountsAndRecipeMillilitres() throws {
+        let milk = Ingredient(name: "Milk", grams: 750, kcalPer100g: 50,
+                              macrosPer100g: MacroTotals(carbs: 5, protein: 3.5, fat: 2),
+                              unit: .millilitres)
+        let recipe = Recipe(name: "Shake", batchServings: 3, ingredients: [milk])
+        XCTAssertEqual(recipe.ingredientGrams(milk, for: 1), 250)
+        XCTAssertEqual(recipe.macrosPerServing?.carbs, 12.5)
+        let restored = try JSONDecoder().decode(Ingredient.self, from: JSONEncoder().encode(milk))
+        XCTAssertEqual(restored.unit, .millilitres)
+        let old = #"{"id":"00000000-0000-0000-0000-000000000001","name":"Oats","grams":100,"kcalPer100g":370}"#.data(using: .utf8)!
+        XCTAssertEqual(try JSONDecoder().decode(Ingredient.self, from: old).unit, .grams)
+    }
+
+    func testSearchGroupsDuplicateListingsAndPrefersCompleteNutrition() {
+        let first = FoodProduct(id: "1", name: "Oat Milk", brand: "Shop", kcalPer100g: 45,
+                                macrosPer100g: nil, unit: .millilitres, servingSize: "", quantity: "1 L")
+        let richer = FoodProduct(id: "2", name: "Oat-Milk", brand: "Shop", kcalPer100g: 46,
+                                 macrosPer100g: MacroTotals(carbs: 6, protein: 1, fat: 2),
+                                 unit: .millilitres, servingSize: "250 ml", quantity: "500 ml")
+        let other = FoodProduct(id: "3", name: "Oat Milk Zero", brand: "Shop", kcalPer100g: 20,
+                                macrosPer100g: nil, unit: .millilitres, servingSize: "", quantity: "1 L")
+        let found = FoodSearch.curated([first, richer, other], matching: "oat milk")
+        XCTAssertEqual(found.count, 2)
+        XCTAssertEqual(found.first?.id, "2")
+    }
+
+    func testGoalEstimateUsesRestingEquationAndMacroEnergy() {
+        var profile = GoalProfile()
+        profile.ageYears = 30
+        profile.heightCm = 175
+        profile.weightKg = 80
+        profile.restingMethod = .male
+        profile.activity = .lightlyActive
+        profile.training = .strength
+        profile.direction = .gentleLoss
+        let estimate = GoalEstimator.estimate(profile)!
+        XCTAssertEqual(estimate.restingKcal, 1748.75, accuracy: 0.01)
+        XCTAssertEqual(estimate.tdeeKcal, 2448.25, accuracy: 0.01)
+        XCTAssertEqual(estimate.dailyMacros.calories, estimate.targetKcal, accuracy: 0.01)
+        XCTAssertEqual(estimate.dailyMacros.protein, 128, accuracy: 0.01)
+        profile.restingMethod = .choose
+        XCTAssertNil(GoalEstimator.estimate(profile))
+    }
 }

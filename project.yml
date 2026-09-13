@@ -26,10 +26,25 @@ targets:
         DEVELOPMENT_TEAM: 434WNX65TH
         CODE_SIGN_STYLE: Automatic
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+  WeekplateUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: WeekplateUITests
+    dependencies:
+      - target: Weekplate
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mattecc.weekplate.uitests
+        TEST_TARGET_NAME: Weekplate
 schemes:
   Weekplate:
     build:
       targets:
         Weekplate: all
+        WeekplateUITests: [test]
+    test:
+      targets:
+        - WeekplateUITests
     run:
       config: Debug
