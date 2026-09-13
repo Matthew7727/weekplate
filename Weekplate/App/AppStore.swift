@@ -48,6 +48,19 @@ struct ActionToast: Identifiable {
         announce("Recipe saved", symbol: "fork.knife")
     }
 
+    func upsertPantryIngredient(_ ingredient: PantryIngredient) {
+        if let index = data.pantryIngredients.firstIndex(where: { $0.id == ingredient.id }) {
+            data.pantryIngredients[index] = ingredient
+        } else {
+            data.pantryIngredients.append(ingredient)
+        }
+        announce("Ingredient saved", symbol: "basket.fill")
+    }
+
+    func removePantryIngredient(_ id: UUID) {
+        data.pantryIngredients.removeAll { $0.id == id }
+    }
+
     func removeRecipe(_ id: UUID) {
         data.recipes.removeAll { $0.id == id }
         data.plan.removeAll { $0.recipeID == id }

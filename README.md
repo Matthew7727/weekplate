@@ -10,12 +10,17 @@ A bold, on-device iPhone app for weekly calorie tracking and Sunday meal prep.
 - Batch recipes with adjustable portions, ingredient weights, calories and macros
 - Meal planning by day and meal, then one-tap logging of a planned portion
 - Import `.txt` recipes as editable drafts (original text is kept in notes)
+- Optional Claude recipe builder: people can use their own API key, stored only in the device Keychain, to create editable macro-targeted recipe drafts
 - Curated packaged-food text search through Search-a-licious and barcode lookup through Open Food Facts, including per-100ml drinks
 - Camera barcode scanning and nutrition-label photography with calorie/macro OCR and manual review before logging
 - Weekly adherence history, weight logs, and a four-week straight-line weight trend
 - Animated launch, playful tap and logging feedback, and light, dark, and system themes
 
 All personal data stays in the app's local Application Support folder. Packaged-food lookup needs an internet connection and depends on community-provided nutrition data. Check product labels; imported text recipes need calorie values before logging. The goal guide is an adult planning estimate, not medical advice; adjust it using your own trend and professional guidance where needed.
+
+## Optional AI recipe builder
+
+AI features are off by default. A person who wants them enables the feature in **You > AI features** and enters their own Claude Console API key. The key is stored only in the device-only iOS Keychain and recipe prompts go directly from the iPhone to Claude; Weekplate has no AI backend or shared API key. Generated nutrition is always an editable estimate, and no generated recipe is saved until it is reviewed.
 
 ## Open in Xcode
 

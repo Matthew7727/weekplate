@@ -10,6 +10,10 @@ struct SettingsView: View {
     @State private var targetWeightText = ""
     @State private var newWeightText = ""
     @State private var weightDate = Date()
+    @AppStorage("weekplate.aiEnabled") private var aiEnabled = false
+    @State private var showClaudeKeyEntry = false
+    @State private var claudeKey = ""
+    @State private var aiMessage: String?
 
     private var latestWeight: WeightEntry? {
         store.data.weights.max { $0.date < $1.date }
@@ -76,6 +80,49 @@ struct SettingsView: View {
                         }
                         .disabled(proposedGoal == nil)
                     }
+                }
+                WCard(color: Brand.lilac) {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Eyebrow(text: "AI features", color: .black.opacity(0.62))
+                        Text("Use your own Claude API key to build recipes from your macro targets. Your key stays on this iPhone.")
+                            .font(.subheadline)
+                        Toggle("Enable AI features", isOn: Binding(get: {
+                            aiEnabled && ClaudeKeychain.hasKey
+                        }, set: { enabled in
+                            if enabled {
+                                if ClaudeKeychain.hasKey { aiEnabled = true }
+                                else { showClaudeKeyEntry = true }
+                            } else {
+                                aiEnabled = false
+                            }
+                        }))
+                        .tint(Brand.blue)
+                        if showClaudeKeyEntry || !ClaudeKeychain.hasKey {
+                            SecureField("Claude API key", text: $claudeKey)
+                                .textInputAutocapitalization(.never)
+                                .autocorrectionDisabled()
+                                .textFieldStyle(.roundedBorder)
+                            Button("Connect Claude") { connectClaude() }
+                                .font(.subheadline.bold()).foregroundStyle(Brand.blue)
+                                .disabled(claudeKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                            Text("Your API key is stored in the device-only iOS Keychain. Weekplate sends recipe requests directly to Claude; no Weekplate server receives your key.")
+                                .font(.caption).foregroundStyle(.secondary)
+                        } else {
+                            HStack {
+                                Label("Claude connected", systemImage: "checkmark.circle.fill")
+                                    .font(.subheadline.bold()).foregroundStyle(Brand.blue)
+                                Spacer()
+                                Button("Disconnect", role: .destructive) {
+                                    ClaudeKeychain.remove()
+                                    aiEnabled = false
+                                    claudeKey = ""
+                                }
+                                .font(.subheadline.bold())
+                            }
+                        }
+                        if let aiMessage { Text(aiMessage).font(.caption).foregroundStyle(.red) }
+                    }
+                    .foregroundStyle(.black)
                 }
                 WCard {
                     VStack(alignment: .center, spacing: 12) {
@@ -159,6 +206,18 @@ struct SettingsView: View {
             store.data.targetWeightKg = nil
         } else if let value = Double(targetWeightText), value > 0 {
             store.data.targetWeightKg = value
+        }
+    }
+
+    private func connectClaude() {
+        do {
+            try ClaudeKeychain.save(claudeKey)
+            claudeKey = ""
+            aiEnabled = true
+            showClaudeKeyEntry = false
+            aiMessage = nil
+        } catch {
+            aiMessage = error.localizedDescription
         }
     }
 }

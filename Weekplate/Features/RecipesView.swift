@@ -5,19 +5,35 @@ struct RecipesView: View {
     @ObservedObject var store: AppStore
     @State private var showNew = false
     @State private var showImporter = false
+    @State private var showAIBuilder = false
+    @State private var showPantry = false
     @State private var importMessage: String?
     @State private var selectedRecipe: Recipe?
+    @AppStorage("weekplate.aiEnabled") private var aiEnabled = false
+
+    private var aiAvailable: Bool { aiEnabled && ClaudeKeychain.hasKey }
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 ScreenHeading(eyebrow: "Your kitchen, organised", title: "RECIPES.",
                               subtitle: "Build a batch. Flex the portions.", alignment: .center)
-                HStack {
-                    PillButton(title: "New recipe", symbol: "plus") { showNew = true }
-                    Button { showImporter = true } label: {
-                        Label("Import text", systemImage: "square.and.arrow.down")
-                            .font(.subheadline.bold()).foregroundStyle(Brand.blue)
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        PillButton(title: "New recipe", symbol: "plus") { showNew = true }
+                        if aiAvailable {
+                            PillButton(title: "Create with AI", symbol: "sparkles", color: Brand.blue) { showAIBuilder = true }
+                        }
+                    }
+                    HStack(spacing: 18) {
+                        Button { showImporter = true } label: {
+                            Label("Import text", systemImage: "square.and.arrow.down")
+                                .font(.subheadline.bold()).foregroundStyle(Brand.blue)
+                        }
+                        Button { showPantry = true } label: {
+                            Label("Pantry", systemImage: "basket")
+                                .font(.subheadline.bold()).foregroundStyle(Brand.blue)
+                        }
                     }
                 }
                 if store.data.recipes.isEmpty {
@@ -56,11 +72,24 @@ struct RecipesView: View {
                         }
                     }
                     .buttonStyle(.plain)
+                    .contextMenu {
+                        Button(role: .destructive) {
+                            store.removeRecipe(recipe.id)
+                        } label: {
+                            Label("Delete recipe", systemImage: "trash")
+                        }
+                    }
                 }
             }
             .padding(20)
         }
         .sheet(isPresented: $showNew) { RecipeEditorView(store: store) }
+        .sheet(isPresented: $showAIBuilder) {
+            AIRecipeBuilderView(store: store) { _ in
+                showAIBuilder = false
+            }
+        }
+        .sheet(isPresented: $showPantry) { PantryView(store: store) }
         .sheet(item: $selectedRecipe) { recipe in RecipeDetailView(store: store, recipeID: recipe.id) }
         .fileImporter(isPresented: $showImporter, allowedContentTypes: [.plainText, .text]) { result in
             do {
@@ -176,6 +205,12 @@ struct RecipeDetailView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Done") { dismiss() } }
                 ToolbarItem(placement: .primaryAction) { Button("Edit") { showEditor = true } }
+                ToolbarItem(placement: .secondaryAction) {
+                    Button(role: .destructive) { showDelete = true } label: {
+                        Image(systemName: "trash")
+                    }
+                    .accessibilityLabel("Delete recipe")
+                }
             }
             .sheet(isPresented: $showEditor) {
                 if let recipe { RecipeEditorView(store: store, existing: recipe) }

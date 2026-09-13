@@ -58,6 +58,21 @@ final class WeekplateCoreTests: XCTestCase {
         let recipe = Recipe(name: "Oat pots", batchServings: 4, ingredients: [ingredient])
         XCTAssertEqual(recipe.macros(for: 1.5)?.carbs, 90)
         XCTAssertEqual(recipe.calories(for: 1.5), 532.5)
+        XCTAssertEqual(recipe.totalMacros?.carbs, 240)
+        XCTAssertEqual(recipe.totalCalories, 1_420)
+    }
+
+    func testPantryAndOlderDataMigration() throws {
+        let pantry = PantryIngredient(name: "Chicken breast", kcalPer100g: 165,
+                                      macrosPer100g: MacroTotals(carbs: 0, protein: 31, fat: 3.6))
+        let ingredient = pantry.recipeIngredient(amount: 200)
+        XCTAssertEqual(ingredient.macros?.protein, 62)
+        var data = AppData()
+        data.pantryIngredients = [pantry]
+        var object = try XCTUnwrap(JSONSerialization.jsonObject(with: JSONEncoder().encode(data)) as? [String: Any])
+        object.removeValue(forKey: "pantryIngredients")
+        let migrated = try JSONDecoder().decode(AppData.self, from: JSONSerialization.data(withJSONObject: object))
+        XCTAssertTrue(migrated.pantryIngredients.isEmpty)
     }
 
     func testOldSavedDataLoadsWithMacroDefaults() throws {

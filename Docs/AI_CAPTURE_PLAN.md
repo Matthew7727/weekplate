@@ -2,6 +2,12 @@
 
 ## Goal
 
+The first AI release is a Claude-powered recipe builder. People opt in with their own Claude Console API key, stored device-only in the iOS Keychain. Their iPhone calls Claude directly; Weekplate does not operate an AI backend or receive API keys.
+
+The builder accepts per-portion macro targets, portions, preferred pantry ingredients, a cuisine/vibe, and practical constraints. Claude returns an editable recipe draft using ordinary UK-supermarket ingredients. Weekplate calculates ingredient, batch and per-portion macros locally and flags nutrition for newly suggested ingredients as an estimate.
+
+The original photo-capture work below remains a later release. A shared-key implementation of that feature must use a backend; never embed a shared provider key in the iOS app.
+
 Use the Claude API to turn photos of nutrition labels and recipes into editable Weekplate data. AI assists extraction; the person always reviews and confirms it before it is saved.
 
 ## First release: nutrition-label capture

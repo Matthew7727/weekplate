@@ -56,6 +56,41 @@ struct Ingredient: Identifiable, Codable, Equatable {
     var macros: MacroTotals? { macrosPer100g?.scaled(by: grams / 100) }
 }
 
+enum NutritionSource: String, Codable, CaseIterable, Identifiable {
+    case manual = "Manual"
+    case packagedFood = "Food lookup"
+    case aiEstimate = "AI estimate"
+
+    var id: String { rawValue }
+}
+
+struct PantryIngredient: Identifiable, Codable, Equatable {
+    var id = UUID()
+    var name: String
+    var kcalPer100g: Double
+    var macrosPer100g: MacroTotals
+    var unit: FoodUnit = .grams
+    var source: NutritionSource = .manual
+    var createdAt = Date()
+
+    init(id: UUID = UUID(), name: String, kcalPer100g: Double,
+         macrosPer100g: MacroTotals, unit: FoodUnit = .grams,
+         source: NutritionSource = .manual, createdAt: Date = Date()) {
+        self.id = id
+        self.name = name
+        self.kcalPer100g = kcalPer100g
+        self.macrosPer100g = macrosPer100g
+        self.unit = unit
+        self.source = source
+        self.createdAt = createdAt
+    }
+
+    func recipeIngredient(amount: Double) -> Ingredient {
+        Ingredient(name: name, grams: amount, kcalPer100g: kcalPer100g,
+                   macrosPer100g: macrosPer100g, unit: unit)
+    }
+}
+
 struct Recipe: Identifiable, Codable, Equatable {
     var id = UUID()
     var name: String
@@ -72,10 +107,18 @@ struct Recipe: Identifiable, Codable, Equatable {
         return ingredients.reduce(0) { $0 + $1.calories } / max(batchServings, 1)
     }
 
+    var totalCalories: Double { caloriesPerServing * max(batchServings, 1) }
+
     var macrosPerServing: MacroTotals? {
         if let manualMacrosPerServing { return manualMacrosPerServing }
         guard !ingredients.isEmpty, ingredients.allSatisfy({ $0.macrosPer100g != nil }) else { return nil }
         return ingredients.reduce(.zero) { $0 + ($1.macros ?? .zero) }.scaled(by: 1 / max(batchServings, 1))
+    }
+
+    var totalMacros: MacroTotals? {
+        if let manualMacrosPerServing { return manualMacrosPerServing.scaled(by: max(batchServings, 1)) }
+        guard !ingredients.isEmpty, ingredients.allSatisfy({ $0.macrosPer100g != nil }) else { return nil }
+        return ingredients.reduce(.zero) { $0 + ($1.macros ?? .zero) }
     }
 
     var hasNutrition: Bool {
@@ -155,6 +198,7 @@ enum AppTheme: String, Codable, CaseIterable, Identifiable {
 
 struct AppData: Codable {
     var recipes: [Recipe] = []
+    var pantryIngredients: [PantryIngredient] = []
     var foodEntries: [FoodEntry] = []
     var plan: [PlanItem] = []
     var weights: [WeightEntry] = []
@@ -170,13 +214,14 @@ struct AppData: Codable {
     init() {}
 
     private enum CodingKeys: String, CodingKey {
-        case recipes, foodEntries, plan, weights, weeklyGoal, goalHistory
+        case recipes, pantryIngredients, foodEntries, plan, weights, weeklyGoal, goalHistory
         case dailyMacroGoal, macroGoalHistory, goalPeriod, goalProfile, targetWeightKg, theme
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         recipes = try container.decodeIfPresent([Recipe].self, forKey: .recipes) ?? []
+        pantryIngredients = try container.decodeIfPresent([PantryIngredient].self, forKey: .pantryIngredients) ?? []
         foodEntries = try container.decodeIfPresent([FoodEntry].self, forKey: .foodEntries) ?? []
         plan = try container.decodeIfPresent([PlanItem].self, forKey: .plan) ?? []
         weights = try container.decodeIfPresent([WeightEntry].self, forKey: .weights) ?? []
